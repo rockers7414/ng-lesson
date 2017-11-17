@@ -1,0 +1,32 @@
+<form (ngSubmit)="onSubmit()" #signInForm="ngForm">
+  <div>
+    <label for="email">Email</label>
+    <input type="email"
+           id="email"
+           [(ngModel)]="email"
+           name="email"
+           required
+           pattern="{{ emailPattern }}"
+           #m_email="ngModel">
+    <div *ngIf="!m_email.pristine">
+      <span *ngIf="m_email.hasError('required')">Please input email.</span>
+      <span *ngIf="m_email.hasError('pattern')">The format is not correct.</span>
+    </div>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password"
+           id="password"
+           [(ngModel)]="password"
+           name="password"
+           required
+           pattern="{{ passwordPattern }}"
+           #m_password="ngModel">
+    <div *ngIf="!m_password.pristine">
+      <span *ngIf="m_password.hasError('required')">Please input password.</span>
+      <span *ngIf="m_password.hasError('pattern')">The format is not correct.</span>
+    </div>
+  </div>
+  <button type="submit" [disabled]="!signInForm.form.valid">Sign In</button>
+  <button type="button" routerLink="/register">Sign Up</button>
+</form>
