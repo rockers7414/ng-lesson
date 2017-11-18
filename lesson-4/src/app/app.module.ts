@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CookieModule } from 'ngx-cookie';
 
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
@@ -33,7 +34,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     FormsModule,
     ReactiveFormsModule,
     routing,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    CookieModule.forRoot()
   ],
   providers: [
     UserService,

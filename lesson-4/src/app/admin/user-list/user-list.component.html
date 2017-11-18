@@ -1,4 +1,4 @@
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>User Id</th>
@@ -15,10 +15,22 @@
       <td>{{ user.userId }}</td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
-      <td>{{ user.email }}</td>
+      <td>
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        {{ user.email }}
+      </td>
       <td>{{ user.isBlock }}</td>
-      <td><button (click)="onClickModifyUser(user)">Modified</button></td>
-      <td><button>Block</button></td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary"
+                (click)="onClickModifyUser(user)">
+          Modified
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-danger">
+          Block
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

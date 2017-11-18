@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie';
 
 import { AuthService } from '../services/auth.service';
 
@@ -24,16 +25,27 @@ export class SignInComponent implements OnInit {
   email: string;
   password: string;
 
+  remember = false;
+
   constructor(
     private authSvc: AuthService,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
+    this.email = this.cookieService.getObject('email') as string || '';
+    this.remember = this.email !== '';
   }
 
   onSubmit() {
+    if (this.remember) {
+      this.cookieService.putObject('email', this.email);
+    } else {
+      this.cookieService.remove('email');
+    }
+
     this.authSvc.signIn(this.email, this.password).subscribe(result => {
       if (result) {
         console.log('Sign in successful.');
