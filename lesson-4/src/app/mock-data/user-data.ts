@@ -6,7 +6,7 @@ export const USERS: User[] = [
     'firstName': 'Shaohua',
     'lastName': 'Lin',
     'email': 'shaohua.lin@mail.apex.com.tw',
-    'password': 'testtest',
+    'password': 'Aa000000',
     'isBlock': false
   },
   {
