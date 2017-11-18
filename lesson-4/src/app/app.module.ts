@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
@@ -14,6 +15,7 @@ import { EqualDirective } from './directives/equal.directive';
 
 import { routing } from './app.routing';
 import { MemberInfoComponent } from './member-info/member-info.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,19 +25,24 @@ import { MemberInfoComponent } from './member-info/member-info.component';
     SignUpComponent,
     SignInComponent,
     EqualDirective,
-    MemberInfoComponent
+    MemberInfoComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    routing
+    routing,
+    NgbModule.forRoot()
   ],
   providers: [
     UserService,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmDialogComponent
+  ]
 })
 export class AppModule {
 

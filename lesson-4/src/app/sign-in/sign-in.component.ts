@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from '../services/auth.service';
+
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 import {
   EMAIL_PATTERN,
@@ -23,7 +26,8 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private authSvc: AuthService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
@@ -35,7 +39,9 @@ export class SignInComponent implements OnInit {
         console.log('Sign in successful.');
         this.router.navigate(['/member']);
       } else {
-        alert('Failed to sign in.');
+        const modalRef = this.modalService.open(ConfirmDialogComponent);
+        modalRef.componentInstance.title = 'Error';
+        modalRef.componentInstance.msg = 'Failed to sign in!';
       }
     });
   }
