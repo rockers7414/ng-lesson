@@ -25,10 +25,7 @@ export class UserService {
   }
 
   getMyInfo(): Observable<User> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.cookie.get('accessToken') })
-    };
-    return this.http.get<Result>(environment.api_service + '/v1/users/me', httpOptions)
+    return this.http.get<Result>(environment.api_service + '/v1/users/me')
       .map(result => {
         if (result.data) {
           return result.data as User;
@@ -38,10 +35,7 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.cookie.get('accessToken') })
-    };
-    return this.http.get<Collection>(environment.api_service + '/v1/users', httpOptions)
+    return this.http.get<Collection>(environment.api_service + '/v1/users')
       .map(result => {
         if (result.data) {
           return result.data as User[];
@@ -51,10 +45,7 @@ export class UserService {
   }
 
   addUser(user: User): Observable<User> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.cookie.get('accessToken') })
-    };
-    return this.http.put<Result>(environment.api_service + '/v1/users', user, httpOptions)
+    return this.http.put<Result>(environment.api_service + '/v1/users', user)
       .map(result => {
         if (result.data) {
           return result.data as User;
@@ -64,10 +55,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.cookie.get('accessToken') })
-    };
-    return this.http.put<Result>(environment.api_service + '/v1/users/' + user._id, user, httpOptions)
+    return this.http.put<Result>(environment.api_service + '/v1/users/' + user._id, user)
       .map(result => {
         if (result.data) {
           return result.data as User;

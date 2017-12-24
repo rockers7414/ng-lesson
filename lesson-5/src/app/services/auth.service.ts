@@ -10,6 +10,7 @@ import 'rxjs/add/observable/of';
 import { User } from '../objects/user';
 import { Result } from '../objects/result';
 
+
 @Injectable()
 export class AuthService {
 
@@ -17,6 +18,10 @@ export class AuthService {
     private http: HttpClient,
     private cookieService: CookieService
   ) { }
+
+  get accessToken() {
+    return this.cookieService.get('accessToken');
+  }
 
   signUp(user: User): Observable<boolean> {
     return this.http.post<Result>(environment.api_service + '/v1/auth/register', user)
@@ -29,6 +34,8 @@ export class AuthService {
   }
 
   signIn(email: string, password: string): Observable<boolean> {
+    this.cookieService.remove('accessToken');
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(email + ':' + password) })
     };

@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CookieModule } from 'ngx-cookie';
+import { CookieModule, CookieService } from 'ngx-cookie';
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
@@ -16,6 +17,15 @@ import { EqualDirective } from './directives/equal.directive';
 import { routing } from './app.routing';
 import { MemberInfoComponent } from './member-info/member-info.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+
+export function jwtOptionsFactory(cookieService) {
+  return {
+    whitelistedDomains: ['localhost:3000'],
+    tokenGetter: () => {
+      return cookieService.get('accessToken');
+    }
+  };
+}
 
 @NgModule({
   declarations: [
@@ -33,11 +43,19 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HttpClientModule,
     routing,
     NgbModule.forRoot(),
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [CookieService]
+      }
+    })
   ],
   providers: [
     UserService,
-    AuthService
+    AuthService,
+    CookieService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -46,7 +64,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 })
 export class AppModule {
 
-  constructor() {
+  constructor(public auth: AuthService) {
     console.log('AppModule constructor is called.');
   }
 
