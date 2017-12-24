@@ -8,6 +8,7 @@ import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -55,6 +56,7 @@ export function jwtOptionsFactory(cookieService) {
   providers: [
     UserService,
     AuthService,
+    AuthGuard,
     CookieService
   ],
   bootstrap: [AppComponent],

@@ -10,19 +10,10 @@ import 'rxjs/add/observable/of';
 import { User } from '../objects/user';
 import { Result, Collection } from '../objects/result';
 
-import { USERS } from '../mock-data/user-data';
-
 @Injectable()
 export class UserService {
 
-  private users: User[];
-
-  constructor(
-    private http: HttpClient,
-    private cookie: CookieService
-  ) {
-    this.users = USERS;
-  }
+  constructor(private http: HttpClient) { }
 
   getMyInfo(): Observable<User> {
     return this.http.get<Result>(environment.api_service + '/v1/users/me')

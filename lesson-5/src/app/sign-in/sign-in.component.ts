@@ -33,19 +33,19 @@ export class SignInComponent implements OnInit {
     private userSvc: UserService,
     private router: Router,
     private modalService: NgbModal,
-    private cookieService: CookieService
+    private cookieSvc: CookieService
   ) { }
 
   ngOnInit() {
-    this.email = this.cookieService.getObject('email') as string || '';
+    this.email = this.cookieSvc.getObject('email') as string || '';
     this.remember = this.email !== '';
   }
 
   onSubmit() {
     if (this.remember) {
-      this.cookieService.putObject('email', this.email);
+      this.cookieSvc.putObject('email', this.email);
     } else {
-      this.cookieService.remove('email');
+      this.cookieSvc.remove('email');
     }
 
     this.authSvc.signIn(this.email, this.password).subscribe(result => {

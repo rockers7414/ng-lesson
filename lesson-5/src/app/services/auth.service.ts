@@ -16,11 +16,11 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieSvc: CookieService
   ) { }
 
   get accessToken() {
-    return this.cookieService.get('accessToken');
+    return this.cookieSvc.get('accessToken');
   }
 
   signUp(user: User): Observable<boolean> {
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   signIn(email: string, password: string): Observable<boolean> {
-    this.cookieService.remove('accessToken');
+    this.cookieSvc.remove('accessToken');
 
     const httpOptions = {
       headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(email + ':' + password) })
@@ -42,7 +42,7 @@ export class AuthService {
     return this.http.post<Result>(environment.api_service + '/v1/auth/token', {}, httpOptions)
       .map(result => {
         if (result.data) {
-          this.cookieService.put('accessToken', result.data);
+          this.cookieSvc.put('accessToken', result.data);
           return true;
         }
         return false;
