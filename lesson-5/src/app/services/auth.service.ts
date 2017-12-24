@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie';
+import { JwtHelper } from 'angular2-jwt';
 import { environment } from '../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
@@ -14,14 +15,12 @@ import { Result } from '../objects/result';
 @Injectable()
 export class AuthService {
 
+  jwtHelper: JwtHelper = new JwtHelper();
+
   constructor(
     private http: HttpClient,
     private cookieSvc: CookieService
   ) { }
-
-  get accessToken() {
-    return this.cookieSvc.get('accessToken');
-  }
 
   signUp(user: User): Observable<boolean> {
     return this.http.post<Result>(environment.api_service + '/v1/auth/register', user)
@@ -42,7 +41,10 @@ export class AuthService {
     return this.http.post<Result>(environment.api_service + '/v1/auth/token', {}, httpOptions)
       .map(result => {
         if (result.data) {
-          this.cookieSvc.put('accessToken', result.data);
+          const exp = this.jwtHelper.getTokenExpirationDate(result.data);
+          console.log(new Date());
+          console.log(exp);
+          this.cookieSvc.put('accessToken', result.data, { expires: exp });
           return true;
         }
         return false;
