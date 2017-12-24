@@ -1,0 +1,22 @@
+<p>Welcome, {{ user?.firstName }}</p>
+<p>Time: {{ loginTime }}</p>
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>UserId</th>
+      <td>{{ user?._id }}</td>
+    </tr>
+    <tr>
+      <th>FirstName</th>
+      <td>{{ user?.firstName }}</td>
+    </tr>
+    <tr>
+      <th>LastName</th>
+      <td>{{ user?.lastName }}</td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td>{{ user?.email }}</td>
+    </tr>
+  </tbody>
+</table>

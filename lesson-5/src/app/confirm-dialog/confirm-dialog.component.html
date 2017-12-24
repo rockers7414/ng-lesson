@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title" translate>{{ title }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <span translate>{{ msg }}</span>
+</div>
+<div class="modal-footer">
+  <button *ngIf="type == 'confirm' || type == 'confirm-danger'"
+          class="btn btn-secondary"
+          type="button"
+          (click)="onCancel()"
+          translate>
+    Cancel
+  </button>
+  <button class="btn"
+          type="button"
+          (click)="onConfirm()"
+          [class.btn-primary]="type == 'confirm'"
+          [class.btn-secondary]="type == 'inform'"
+          [class.btn-danger]="type == 'confirm-danger'"
+          translate>
+    OK
+  </button>
+</div>
+

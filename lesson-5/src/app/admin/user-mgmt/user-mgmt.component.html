@@ -1,0 +1,17 @@
+<div class="card mt-2">
+  <div class="card-body">
+    <div class="mb-2 clearfix">
+      <button class="btn btn-primary float-right" (click)="onAddUser()">Add</button>
+    </div>
+    <app-user-list [users]="users" (onModifyUser)="onModifyUser($event)"></app-user-list>
+    <ng-template #addModifyUserDialog>
+      <div class="card-body">
+        <app-user-add-form [modifiedUser]="modifiedUser"
+                           (onAddedUser)="onAddedUser($event)"
+                           (onCanceledModifyUser)="onCanceledModifyUser($event)"
+                           (onModifiedUser)="onModifiedUser($event)">
+        </app-user-add-form>
+      </div>
+    </ng-template>
+  </div>
+</div>
